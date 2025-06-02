@@ -1,0 +1,107 @@
+.skill-list {
+  position: relative;
+  padding-left: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  background-image: url("../../assets/bg_01.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #592a56;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.icon-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  background-image: url('../../assets/bg_skill_01.png');
+  background-size: cover;
+  border-radius: 8px;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 80px;
+    background-image: url('../../assets/bg_skill_texiao.png');
+    background-size: cover;
+    opacity: 0;
+    pointer-events: none;
+    transform: rotate(0deg);
+    transition: opacity 0.3s ease;
+    z-index: 2;
+  }
+
+  &:hover::after {
+    opacity: 1;
+    animation: rotate-counter 5s linear infinite;
+  }
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+  }
+}
+
+.bubble {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-width: 24px;
+  border-style: solid;
+  border-image: url('../../assets/bar_tianfushu.png') 40 fill;
+  box-sizing: border-box;
+  width: 220px;
+  height: 100px;
+  padding: 8px 12px;
+  position: relative;
+  color: #853b3b;
+}
+
+.desc-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.description {
+  font-size: 14px;
+  margin: 0;
+  word-break: break-word;
+}
+
+.score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
+  color: #333;
+  gap: 4px;
+  margin-top: 4px;
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+}

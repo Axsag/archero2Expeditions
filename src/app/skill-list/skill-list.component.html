@@ -1,0 +1,17 @@
+<div class="skill-list">
+  <div class="skill-item" *ngFor="let skill of skills">
+    <div class="icon-container">
+      <img [src]="skill.icon" alt="skill icon" />
+    </div>
+
+    <div class="bubble">
+      <div class="desc-container">
+        <p class="description">{{ skill.description }}</p>
+      </div>
+      <div class="score">
+        <img src="../../assets/icons/score-icon.png" alt="score icon" />
+        <span>{{ skill.score }} / {{ maxScore }}</span>
+      </div>
+    </div>
+  </div>
+</div>
