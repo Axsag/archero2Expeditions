@@ -36,11 +36,32 @@
     align-items: center;
     border-bottom: 2px #fedf9e solid;
     border-radius: 0 0 12px 12px;
+    gap: 1rem;
 
+    .reward-group-wrapper {
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-grow: 1;
+      padding-bottom: 0.25rem;
 
-    .reward-group {
-      display: flex;
-      gap: 0.25rem;
+      .reward-group {
+        display: flex;
+        gap: 0.25rem;
+        min-width: fit-content;
+      }
+
+      &::-webkit-scrollbar {
+        height: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #aaa;
+        border-radius: 3px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
     }
 
     .reward-icon {
@@ -49,6 +70,7 @@
       height: 50px;
       background-image: url("../../assets/Frame_Quality_7.png");
       background-size: contain;
+      flex-shrink: 0;
 
       &.rewarded {
         background-image: url("../../assets/Frame_Quality_7gs.png");
@@ -81,8 +103,8 @@
         text-shadow:
           -1px -1px 0 #000,
           1px -1px 0 #000,
-          -1px  1px 0 #000,
-          1px  1px 0 #000;
+          -1px 1px 0 #000,
+          1px 1px 0 #000;
       }
 
       .reward-check {
@@ -94,6 +116,7 @@
         z-index: 2;
       }
     }
+
     .reward-count {
       position: absolute;
       bottom: -3px;
@@ -109,11 +132,13 @@
       text-shadow:
         -1px -1px 0 #000,
         1px -1px 0 #000,
-        -1px  1px 0 #000,
-        1px  1px 0 #000;
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
       pointer-events: none;
     }
+
     .task-buttons {
+      flex-shrink: 0;
       display: flex;
       gap: 0.25rem;
 
@@ -174,10 +199,12 @@
   img {
     height: 50px;
   }
+
   &:hover {
     filter: brightness(1.1);
   }
 }
+
 .privilege-cards {
   display: flex;
   justify-content: center;

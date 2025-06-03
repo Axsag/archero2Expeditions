@@ -24,7 +24,6 @@
     </div>
   </div>
 
-
   <div *ngFor="let task of tasks" class="task-card">
     <div class="task-header">
       <div class="task-desc">{{ task.description }}</div>
@@ -36,49 +35,47 @@
     </div>
 
     <div class="task-body">
-      <div class="reward-group">
-        <ng-container *ngIf="task.type === 'stepped'">
-          <div
-            class="reward-icon"
-            [ngClass]="{'rewarded': i < (task.currentStep || 0)}"
-            *ngFor="let step of [].constructor(task.totalSteps); let i = index"
-          >
-            <img src="assets/icon_gongzhanzhixing.png" alt="Reward" class="reward-icon-img" />
-            <div class="reward-amount" *ngIf="i >= (task.currentStep || 0)">
-              {{ task.rewardPerStep }}
-            </div>
-            <img
-              class="reward-check"
-              *ngIf="i < (task.currentStep || 0)"
-              src="assets/checkmark.png"
-              alt="✔"
-            />
-          </div>
-        </ng-container>
-
-        <ng-container *ngIf="task.type === 'infinite'">
-          <!-- If currentCount is 0, show one standard reward -->
-          <div
-            class="reward-icon"
-            *ngIf="(task.currentCount ?? 0) === 0"
-          >
-            <img src="assets/icon_gongzhanzhixing.png" alt="Reward" class="reward-icon-img" />
-            <div class="reward-amount">{{ task.rewardPerStep }}</div>
-          </div>
-
-          <ng-container *ngIf="(task.currentCount ?? 0) > 0">
-            <div class="reward-icon rewarded">
+      <div class="reward-group-wrapper">
+        <div class="reward-group">
+          <ng-container *ngIf="task.type === 'stepped'">
+            <div
+              class="reward-icon"
+              [ngClass]="{'rewarded': i < (task.currentStep || 0)}"
+              *ngFor="let step of [].constructor(task.totalSteps); let i = index"
+            >
               <img src="assets/icon_gongzhanzhixing.png" alt="Reward" class="reward-icon-img" />
-              <img class="reward-check" src="assets/Btn_Green_S.png" alt="✔" />
-              <div class="reward-count">{{ task.currentCount }}</div>
+              <div class="reward-amount" *ngIf="i >= (task.currentStep || 0)">
+                {{ task.rewardPerStep }}
+              </div>
+              <img
+                class="reward-check"
+                *ngIf="i < (task.currentStep || 0)"
+                src="assets/checkmark.png"
+                alt="✔"
+              />
             </div>
+          </ng-container>
 
-            <div class="reward-icon">
+          <ng-container *ngIf="task.type === 'infinite'">
+            <div class="reward-icon" *ngIf="(task.currentCount ?? 0) === 0">
               <img src="assets/icon_gongzhanzhixing.png" alt="Reward" class="reward-icon-img" />
               <div class="reward-amount">{{ task.rewardPerStep }}</div>
             </div>
+
+            <ng-container *ngIf="(task.currentCount ?? 0) > 0">
+              <div class="reward-icon rewarded">
+                <img src="assets/icon_gongzhanzhixing.png" alt="Reward" class="reward-icon-img" />
+                <img class="reward-check" src="assets/Btn_Green_S.png" alt="✔" />
+                <div class="reward-count">{{ task.currentCount }}</div>
+              </div>
+
+              <div class="reward-icon">
+                <img src="assets/icon_gongzhanzhixing.png" alt="Reward" class="reward-icon-img" />
+                <div class="reward-amount">{{ task.rewardPerStep }}</div>
+              </div>
+            </ng-container>
           </ng-container>
-        </ng-container>
+        </div>
       </div>
 
       <div class="task-buttons">
@@ -108,4 +105,5 @@
     <img src="assets/btn_shuaxin.png" alt="Reset" class="reset-icon" />
   </button>
 </div>
+
 <bottom-navbar></bottom-navbar>
