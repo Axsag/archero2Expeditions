@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {BottomNavbarComponent} from '../bottom-navbar/bottom-navbar.component';
 
 export interface Task {
   id: string;
   icon: string;
   description: string;
   rewardPerStep: number;
-  rewardCount: number;
   type: 'stepped' | 'infinite';
   totalSteps?: number;
   currentStep?: number;
@@ -16,28 +16,72 @@ export interface Task {
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    BottomNavbarComponent
+  ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
 export class TaskListComponent {
+
   tasks: Task[] = [
     {
-      id: 'clear-cave',
+      id: 'guild-mi',
       icon: 'assets/icon_cave.png',
-      description: 'Clear the Cave',
+      description: 'Guild Monster Invasion',
       rewardPerStep: 60,
-      rewardCount: 2,
       type: 'stepped',
       totalSteps: 2,
       currentStep: 0
     },
     {
-      id: 'monster-invasion',
+      id: 'seal-battle',
+      icon: 'assets/icon_cave.png',
+      description: 'Seal Battle (quick raid possible)',
+      rewardPerStep: 60,
+      type: 'stepped',
+      totalSteps: 3,
+      currentStep: 0
+    },
+    {
+      id: 'gold-cave',
+      icon: 'assets/icon_cave.png',
+      description: 'Gold Cave (quick raid possible)',
+      rewardPerStep: 30,
+      type: 'stepped',
+      totalSteps: 2,
+      currentStep: 0
+    },
+    {
+      id: 'shackled-jg',
+      icon: 'assets/icon_cave.png',
+      description: 'Shackled Jungle (quick raid possible)',
+      rewardPerStep: 60,
+      type: 'infinite',
+      currentCount: 0
+    },
+    {
+      id: 'abyssal-tide',
+      icon: 'assets/icon_cave.png',
+      description: 'Abyssal Tide (quick raid possible)',
+      rewardPerStep: 60,
+      type: 'infinite',
+      currentCount: 0
+    },
+    {
+      id: 'sky-tower',
+      icon: 'assets/icon_cave.png',
+      description: 'Sky Tower (full Clear)',
+      rewardPerStep: 25,
+      type: 'infinite',
+      currentCount: 0
+    },
+    {
+      id: 'clear-chapters',
       icon: 'assets/icon_chapter.png',
-      description: 'Monster Invasion',
+      description: 'Clear chapters (6min)',
       rewardPerStep: 40,
-      rewardCount: 1,
       type: 'infinite',
       currentCount: 0
     }
@@ -67,7 +111,7 @@ export class TaskListComponent {
         task.currentCount = 0;
       }
     });
-    this.saveProgress();
+    localStorage.removeItem('taskProgress');
   }
 
   getReward(task: Task): number {
@@ -100,5 +144,12 @@ export class TaskListComponent {
 
   getTotalReward(): number {
     return this.tasks.reduce((total, task) => total + this.getReward(task), 0);
+  }
+  getStepReward(task: Task): number {
+    if (task.type === 'stepped') {
+      return Math.floor(task.rewardPerStep / task.totalSteps!);
+    } else {
+      return task.rewardPerStep;
+    }
   }
 }

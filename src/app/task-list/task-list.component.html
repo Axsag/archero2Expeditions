@@ -10,25 +10,59 @@
     </div>
 
     <div class="task-body">
-      <div class="reward-icon">
-        <img src="assets/icon_gongzhanzhixing.png" alt="Reward" />
-        <div class="reward-amount">
-          {{ getReward(task) }}
-        </div>
-      </div>
-      <div class="task-buttons">
-        <button (click)="changeStep(task, -1)">-</button>
-        <button (click)="changeStep(task, 1)">+</button>
-      </div>
-    </div>
+      <div class="reward-group">
+        <ng-container *ngIf="task.type === 'stepped'">
+          <div
+            class="reward-icon"
+            [ngClass]="{'rewarded': i < (task.currentStep || 0)}"
+            *ngFor="let step of [].constructor(task.totalSteps); let i = index"
+          >
+            <img src="assets/icon_gongzhanzhixing.png" alt="Reward" class="reward-icon-img" />
+            <div class="reward-amount" *ngIf="i >= (task.currentStep || 0)">
+              {{ task.rewardPerStep }}
+            </div>
+            <img
+              class="reward-check"
+              *ngIf="i < (task.currentStep || 0)"
+              src="assets/checkmark.png"
+              alt="✔"
+            />
+          </div>
+        </ng-container>
 
-    <div class="task-footer">
-      <div
-        class="progress-bar"
-        [style.width.%]="getProgress(task)"
-      ></div>
+        <ng-container *ngIf="task.type === 'infinite'">
+          <div class="reward-icon">
+            <img src="assets/icon_gongzhanzhixing.png" alt="Reward" class="reward-icon-img" />
+            <div class="reward-amount">{{ task.rewardPerStep }}</div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="task-buttons">
+        <button
+          (click)="changeStep(task, -1)"
+          [disabled]="
+            (task.type === 'stepped' && (task.currentStep ?? 0) <= 0) ||
+            (task.type === 'infinite' && (task.currentCount ?? 0) <= 0)
+          "
+        >
+          <img src="assets/Btn_S_Blue-.png" alt="-" />
+        </button>
+
+        <button
+          (click)="changeStep(task, 1)"
+          [disabled]="
+            task.type === 'stepped' && (task.currentStep ?? 0) >= (task.totalSteps ?? 0)
+          "
+        >
+          <img src="assets/Btn_S_Blue+.png" alt="+" />
+        </button>
+      </div>
     </div>
   </div>
 
-  <button class="reset-button" (click)="resetAll()">Reset All</button>
+  <button class="reset-button" (click)="resetAll()">
+    <img src="assets/btn_shuaxin.png" alt="Reset" class="reset-icon" />
+  </button>
 </div>
+<bottom-navbar></bottom-navbar>

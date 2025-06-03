@@ -2,11 +2,15 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { skills } from './skills';
 import { Skill } from './skill.model';
+import {BottomNavbarComponent} from '../bottom-navbar/bottom-navbar.component';
 
 @Component({
   selector: 'app-skill-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    BottomNavbarComponent
+  ],
   templateUrl: './skill-list.component.html',
   styleUrls: ['./skill-list.component.scss']
 })
