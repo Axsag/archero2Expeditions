@@ -4,7 +4,6 @@ import {BottomNavbarComponent} from '../bottom-navbar/bottom-navbar.component';
 
 export interface Task {
   id: string;
-  icon: string;
   description: string;
   rewardPerStep: number;
   type: 'stepped' | 'infinite';
@@ -25,6 +24,8 @@ export interface Task {
 })
 export class TaskListComponent {
 
+  localStorageItem = 'tasksitem46846';
+
   privileges = {
     cave: false,
     seal: false,
@@ -34,7 +35,6 @@ export class TaskListComponent {
   tasks: Task[] = [
     {
       id: 'guild-mi',
-      icon: 'assets/icon_cave.png',
       description: 'Guild Monster Invasion',
       rewardPerStep: 60,
       type: 'stepped',
@@ -43,7 +43,6 @@ export class TaskListComponent {
     },
     {
       id: 'seal-battle',
-      icon: 'assets/icon_cave.png',
       description: 'Seal Battle (quick raid possible)',
       rewardPerStep: 60,
       type: 'stepped',
@@ -52,7 +51,6 @@ export class TaskListComponent {
     },
     {
       id: 'gold-cave',
-      icon: 'assets/icon_cave.png',
       description: 'Gold Cave (quick raid possible)',
       rewardPerStep: 30,
       type: 'stepped',
@@ -61,7 +59,6 @@ export class TaskListComponent {
     },
     {
       id: 'shackled-jg',
-      icon: 'assets/icon_cave.png',
       description: 'Shackled Jungle (quick raid possible)',
       rewardPerStep: 60,
       type: 'stepped',
@@ -70,7 +67,6 @@ export class TaskListComponent {
     },
     {
       id: 'abyssal-tide',
-      icon: 'assets/icon_cave.png',
       description: 'Abyssal Tide (quick raid possible)',
       rewardPerStep: 60,
       type: 'stepped',
@@ -79,7 +75,6 @@ export class TaskListComponent {
     },
     {
       id: 'sky-tower',
-      icon: 'assets/icon_cave.png',
       description: 'Sky Tower (full Clear)',
       rewardPerStep: 25,
       type: 'infinite',
@@ -87,16 +82,15 @@ export class TaskListComponent {
     },
     {
       id: 'clear-chapters',
-      icon: 'assets/icon_chapter.png',
       description: 'Clear chapters (6min)',
-      rewardPerStep: 40,
+      rewardPerStep: 50,
       type: 'infinite',
       currentCount: 0
     }
   ];
 
   constructor() {
-    const saved = localStorage.getItem('taskProgress');
+    const saved = localStorage.getItem(this.localStorageItem);
     if (saved) {
       const parsed = JSON.parse(saved);
       this.tasks = parsed.tasks || this.tasks;
@@ -127,7 +121,7 @@ export class TaskListComponent {
       }
     });
 
-    localStorage.removeItem('taskProgress');
+    localStorage.removeItem(this.localStorageItem);
 
     this.saveProgress();
 
@@ -182,7 +176,7 @@ export class TaskListComponent {
   }
 
   saveProgress() {
-    localStorage.setItem('taskProgress', JSON.stringify({
+    localStorage.setItem(this.localStorageItem, JSON.stringify({
       tasks: this.tasks,
       privileges: this.privileges
     }));
