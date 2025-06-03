@@ -52,6 +52,13 @@ For end-to-end (e2e) testing, run:
 ng e2e
 ```
 
+```bash
+ng build --configuration production --base-href "https://axsag.github.io/archero2Expeditions/" 
+```
+```bash
+npx angular-cli-ghpages --dir=dist/archero2-expedition/browser
+```
+
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
 ## Additional Resources
