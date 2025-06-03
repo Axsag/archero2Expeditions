@@ -25,6 +25,12 @@ export interface Task {
 })
 export class TaskListComponent {
 
+  privileges = {
+    cave: false,
+    seal: false,
+    abyssal: false
+  };
+
   tasks: Task[] = [
     {
       id: 'guild-mi',
@@ -58,16 +64,18 @@ export class TaskListComponent {
       icon: 'assets/icon_cave.png',
       description: 'Shackled Jungle (quick raid possible)',
       rewardPerStep: 60,
-      type: 'infinite',
-      currentCount: 0
+      type: 'stepped',
+      totalSteps: 2,
+      currentStep: 0
     },
     {
       id: 'abyssal-tide',
       icon: 'assets/icon_cave.png',
       description: 'Abyssal Tide (quick raid possible)',
       rewardPerStep: 60,
-      type: 'infinite',
-      currentCount: 0
+      type: 'stepped',
+      totalSteps: 2,
+      currentStep: 0
     },
     {
       id: 'sky-tower',
@@ -90,9 +98,13 @@ export class TaskListComponent {
   constructor() {
     const saved = localStorage.getItem('taskProgress');
     if (saved) {
-      this.tasks = JSON.parse(saved);
+      const parsed = JSON.parse(saved);
+      this.tasks = parsed.tasks || this.tasks;
+      this.privileges = parsed.privileges || this.privileges;
+      this.applyPrivileges();
     }
   }
+
 
   changeStep(task: Task, delta: number) {
     if (task.type === 'stepped') {
@@ -104,6 +116,9 @@ export class TaskListComponent {
   }
 
   resetAll() {
+
+    const currentPrivileges = this.privileges;
+
     this.tasks.forEach(task => {
       if (task.type === 'stepped') {
         task.currentStep = 0;
@@ -111,45 +126,65 @@ export class TaskListComponent {
         task.currentCount = 0;
       }
     });
+
     localStorage.removeItem('taskProgress');
+
+    this.saveProgress();
+
+    this.privileges = currentPrivileges;
   }
 
-  getReward(task: Task): number {
-    if (task.type === 'stepped') {
-      return (task.currentStep || 0) * task.rewardPerStep;
-    } else {
-      return (task.currentCount || 0) * task.rewardPerStep;
+  applyPrivileges() {
+    // Reset to base task config first
+    this.tasks.forEach(task => {
+      switch (task.id) {
+        case 'gold-cave':
+          task.totalSteps = 2 + (this.privileges.cave ? 2 : 0);
+          task.currentStep = Math.min(task.currentStep ?? 0, task.totalSteps);
+          break;
+        case 'seal-battle':
+          task.totalSteps = 3 + (this.privileges.seal ? 1 : 0);
+          task.currentStep = Math.min(task.currentStep ?? 0, task.totalSteps);
+          break;
+        case 'shackled-jg':
+          task.totalSteps = 3 + (this.privileges.abyssal ? 2 : 0);
+          task.currentStep = Math.min(task.currentStep ?? 0, task.totalSteps);
+          break;
+        case 'abyssal-tide':
+          task.totalSteps = 3 + (this.privileges.abyssal ? 1 : 0);
+          task.currentStep = Math.min(task.currentStep ?? 0, task.totalSteps);
+          break;
+        case 'sky-tower':
+          // task.totalSteps = 6 + (this.privileges.abyssal ? 3 : 0);
+          // task.currentStep = Math.min(task.currentStep ?? 0, task.totalSteps);
+          break;
+      }
+    });
+
+    if (this.privileges.abyssal) {
+      const addCount = (id: string, add: number) => {
+        const t = this.tasks.find(t => t.id === id);
+        if (t?.type === 'infinite') {
+          t.rewardPerStep = t.rewardPerStep; // unchanged, kept for clarity
+          // could apply any logic here if count should change
+        }
+      };
+      addCount('shackled-jg', 2);
+      addCount('abyssal-tide', 1);
+      addCount('sky-tower', 3);
     }
   }
 
-  getProgress(task: Task): number {
-    if (task.type === 'stepped') {
-      return ((task.currentStep || 0) / (task.totalSteps || 1)) * 100;
-    } else {
-      return 100;
-    }
+  togglePrivilege(priv: keyof typeof this.privileges) {
+    this.privileges[priv] = !this.privileges[priv];
+    this.applyPrivileges();
+    this.saveProgress();
   }
 
   saveProgress() {
-    localStorage.setItem('taskProgress', JSON.stringify(this.tasks));
-  }
-
-  getStepText(task: Task): string {
-    if (task.type === 'stepped') {
-      return `(${task.currentStep}/${task.totalSteps})`;
-    } else {
-      return `(${task.currentCount}/∞)`;
-    }
-  }
-
-  getTotalReward(): number {
-    return this.tasks.reduce((total, task) => total + this.getReward(task), 0);
-  }
-  getStepReward(task: Task): number {
-    if (task.type === 'stepped') {
-      return Math.floor(task.rewardPerStep / task.totalSteps!);
-    } else {
-      return task.rewardPerStep;
-    }
+    localStorage.setItem('taskProgress', JSON.stringify({
+      tasks: this.tasks,
+      privileges: this.privileges
+    }));
   }
 }

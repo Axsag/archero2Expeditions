@@ -1,4 +1,30 @@
 <div class="task-list">
+
+  <div class="privilege-cards">
+    <div
+      class="privilege-card"
+      [class.selected]="privileges.cave"
+      (click)="togglePrivilege('cave')"
+    >
+      <img src="assets/privcave.png" alt="Cave Privilege" />
+    </div>
+    <div
+      class="privilege-card"
+      [class.selected]="privileges.seal"
+      (click)="togglePrivilege('seal')"
+    >
+      <img src="assets/privseal.png" alt="Seal Privilege" />
+    </div>
+    <div
+      class="privilege-card"
+      [class.selected]="privileges.abyssal"
+      (click)="togglePrivilege('abyssal')"
+    >
+      <img src="assets/privaby.png" alt="Abyssal Privilege" />
+    </div>
+  </div>
+
+
   <div *ngFor="let task of tasks" class="task-card">
     <div class="task-header">
       <div class="task-desc">{{ task.description }}</div>
@@ -31,10 +57,27 @@
         </ng-container>
 
         <ng-container *ngIf="task.type === 'infinite'">
-          <div class="reward-icon">
+          <!-- If currentCount is 0, show one standard reward -->
+          <div
+            class="reward-icon"
+            *ngIf="(task.currentCount ?? 0) === 0"
+          >
             <img src="assets/icon_gongzhanzhixing.png" alt="Reward" class="reward-icon-img" />
             <div class="reward-amount">{{ task.rewardPerStep }}</div>
           </div>
+
+          <ng-container *ngIf="(task.currentCount ?? 0) > 0">
+            <div class="reward-icon rewarded">
+              <img src="assets/icon_gongzhanzhixing.png" alt="Reward" class="reward-icon-img" />
+              <img class="reward-check" src="assets/Btn_Green_S.png" alt="✔" />
+              <div class="reward-count">{{ task.currentCount }}</div>
+            </div>
+
+            <div class="reward-icon">
+              <img src="assets/icon_gongzhanzhixing.png" alt="Reward" class="reward-icon-img" />
+              <div class="reward-amount">{{ task.rewardPerStep }}</div>
+            </div>
+          </ng-container>
         </ng-container>
       </div>
 
