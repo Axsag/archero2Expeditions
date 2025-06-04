@@ -49,6 +49,11 @@
 
 .nav-item.active {
   .icon {
-    background: linear-gradient(180deg, #ffd240 0%, #fdf32d 100%);
+    background: linear-gradient(180deg, #ffce30 0%, #fdf32d 100%);
+  }
+}
+.nav-item#kofi {
+  .icon {
+    background: linear-gradient(180deg, #e95948 0%, #7d2b54 100%);
   }
 }

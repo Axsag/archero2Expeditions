@@ -2,7 +2,7 @@
   <div class="nav-left">
     <ng-container *ngFor="let item of leftNavItems">
       <ng-container *ngIf="item.external; else internalLinkLeft">
-        <a class="nav-item" [href]="item.path" target="_blank" rel="noopener">
+        <a [id]="item.key" class="nav-item" [href]="item.path" target="_blank" rel="noopener">
           <img [src]="item.icon" alt="{{ item.label }}" class="icon" />
           <div class="label" [innerHTML]="formatLabel(item.label)"></div>
         </a>

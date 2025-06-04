@@ -24,7 +24,7 @@ export interface Task {
 })
 export class TaskListComponent {
 
-  localStorageItem = 'tasksitem46846';
+  localStorageItem = 'tasksitem4651586';
 
   privileges = {
     cave: false,
@@ -75,7 +75,7 @@ export class TaskListComponent {
     },
     {
       id: 'sky-tower',
-      description: 'Sky Tower (full Clear)',
+      description: 'Sky Tower (Bosses stages gives 5 total)',
       rewardPerStep: 25,
       type: 'infinite',
       currentCount: 0
