@@ -18,6 +18,7 @@ export class BottomNavbarComponent {
     { key: 'kofi', icon: 'assets/tip-kofi-alt.gif', label: 'Ko-fi', path: 'https://ko-fi.com/W7W41B9W0J', external: true, align: 'left' },
     { key: 'tasks', icon: 'assets/Icon_TaskCenter.png', label: 'Tasks', path: '/tasks', external: false, align: 'right' },
     { key: 'talents', icon: 'assets/icon_tianfushu.png', label: 'Talents', path: '/talents', external: false, align: 'right' },
+    { key: 'board', icon: 'assets/qizi_tower.png', label: 'Board', path: '/board', external: false, align: 'right' },
   ];
 
   get leftNavItems() {

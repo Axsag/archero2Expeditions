@@ -6,30 +6,35 @@
     <img src="assets/arrow_yellow.png" class="arrow arrow-4" />
     <img src="assets/arrow_yellow.png" class="arrow arrow-5" />
     <img src="assets/arrow_yellow.png" class="arrow arrow-6" />
-    <div
-      *ngFor="let row of board; let i = index"
-    >
+
+    <div *ngFor="let row of board; let i = index">
       <ng-container *ngFor="let cell of row; let j = index">
         <div
           class="cell"
-          [ngClass]="['cell-' + i + '-' + j, cell.token??'']"
-          (dragover)="allowDrop($event)"
-          (drop)="onDrop(i, j)"
+          [ngClass]="['cell-' + i + '-' + j, cell.token ?? '', selected?.row === i && selected?.col === j ? 'selected' : '']"
+          (click)="onCellTap(i, j)"
         >
           <img
-            *ngIf="cell.token"
-            [src]="
-            cell.token === 'red'
-              ? 'assets/qizi_red.png'
-              : 'assets/qizi_blue.png'
-          "
+            *ngIf="cell.token && !(movingToken && movingToken.fromCell === 'cell-' + i + '-' + j)"
+            [src]="cell.token === 'red' ? 'assets/qizi_red.png' : 'assets/qizi_blue.png'"
             class="token"
-            draggable="true"
-            (dragstart)="onDragStart(i, j)"
           />
         </div>
       </ng-container>
     </div>
+    <div
+      *ngIf="movingToken"
+      class="moving-token"
+      [style.transform]="'translate(' + movingLeft + 'px, ' + movingTop + 'px)'"
+    >
+      <img
+        [src]="movingToken.token === 'red'
+              ? 'assets/qizi_red.png'
+              : 'assets/qizi_blue.png'"
+        class="token"
+      />
+    </div>
   </div>
 </div>
+
 <bottom-navbar></bottom-navbar>

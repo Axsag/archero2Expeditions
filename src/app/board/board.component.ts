@@ -1,23 +1,29 @@
 import { Component } from '@angular/core';
-import {BottomNavbarComponent} from '../bottom-navbar/bottom-navbar.component';
-import {CommonModule} from '@angular/common';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { BottomNavbarComponent } from '../bottom-navbar/bottom-navbar.component';
+import { CommonModule } from '@angular/common';
 
 type Token = 'red' | 'blue' | null;
 
 @Component({
   selector: 'app-board',
-  imports: [
-    CommonModule,
-    BottomNavbarComponent
-  ],
+  standalone: true,
+  imports: [CommonModule, BottomNavbarComponent],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent {
   board: { token: Token }[][] = [];
+  selected: { row: number, col: number } | null = null;
 
-  dragged = { row: -1, col: -1 };
+  movingToken: {
+    token: 'red' | 'blue';
+    fromCell: string;
+    toCell: string;
+    progress: number;
+  } | null = null;
+
+  movingLeft = 0;
+  movingTop = 0;
 
   constructor() {
     this.resetBoard();
@@ -34,37 +40,77 @@ export class BoardComponent {
     );
   }
 
-  onDragStart(row: number, col: number) {
-    this.dragged = { row, col };
-  }
+  onCellTap(row: number, col: number) {
+    const cell = this.board[row][col];
 
-  onDrop(row: number, col: number) {
-    const from = this.dragged;
-    const movingToken = this.board[from.row][from.col].token;
+    // Si la cellule contient un pion
+    if (cell.token) {
+      const possibleMove = this.getSingleVerticalMove(row, col);
+      if (!possibleMove) return;
 
-    if (!movingToken) return;
+      const token = cell.token;
+      const fromClass = `cell-${row}-${col}`;
+      const toClass = `cell-${possibleMove.row}-${possibleMove.col}`;
 
-    // Only allow vertical movement on the same column
-    if (col !== from.col) return;
+      this.board[row][col].token = null;
 
-    // No overlap
-    if (this.board[row][col].token !== null) return;
+      this.movingToken = {
+        token,
+        fromCell: fromClass,
+        toCell: toClass,
+        progress: 0
+      };
 
-    // No jump over
-    const range = from.row < row
-      ? [from.row + 1, row]
-      : [row + 1, from.row];
+      const fromPos = this.getCellCenter(fromClass);
+      const toPos = this.getCellCenter(toClass);
 
-    for (let r = range[0]; r < range[1]; r++) {
-      if (this.board[r][col].token !== null) return;
+      const duration = 250;
+      const startTime = performance.now();
+
+      const animate = (now: number) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        this.movingToken!.progress = progress;
+
+        this.movingLeft = fromPos.left + (toPos.left - fromPos.left) * progress;
+        this.movingTop = fromPos.top + (toPos.top - fromPos.top) * progress;
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          this.board[possibleMove.row][possibleMove.col].token = token;
+          this.board[row][col].token = null;
+          this.movingToken = null;
+        }
+      };
+
+      requestAnimationFrame(animate);
     }
-
-    // Move token
-    this.board[row][col].token = movingToken;
-    this.board[from.row][from.col].token = null;
   }
 
-  allowDrop(event: DragEvent) {
-    event.preventDefault();
+  getSingleVerticalMove(row: number, col: number): { row: number, col: number } | null {
+    const directions = [-1, 1]; // haut et bas
+    for (const dir of directions) {
+      const newRow = row + dir;
+      if (
+        newRow >= 0 &&
+        newRow < this.board.length &&
+        this.board[newRow][col].token === null
+      ) {
+        return { row: newRow, col };
+      }
+    }
+    return null;
+  }
+
+  getCellCenter(cellClass: string): { top: number; left: number } {
+    const el = document.querySelector(`.cell.${cellClass}`) as HTMLElement;
+    if (!el) return { top: 0, left: 0 };
+    const rect = el.getBoundingClientRect();
+    const board = document.querySelector('.board')?.getBoundingClientRect();
+    return {
+      left: rect.left - (board?.left ?? 0),
+      top: rect.top - (board?.top ?? 0)
+    };
   }
 }

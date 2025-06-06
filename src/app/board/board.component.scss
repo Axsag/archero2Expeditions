@@ -26,7 +26,7 @@
 
 .cell-0-0 { top: 22%; left: 10%; --token-size: 50% }
 .cell-0-1 { top: 18.8%; left: 36.4%; --token-size: 50% }
-.cell-0-2 { top: 22%; left: 62.9%; --token-size: 50% }
+.cell-0-2 { top: 22%; left: 62.8%; --token-size: 50% }
 
 .cell-1-0 {
   top: 35.5%;
@@ -58,7 +58,7 @@
 
 .cell-2-0 { top: 49.2%; left: 8.3%; --token-size: 52% }
 .cell-2-1 { top: 52.6%; left: 35.5%; --token-size: 52% }
-.cell-2-2 { top: 49.2%; left: 62.9%; --token-size: 52% }
+.cell-2-2 { top: 49.2%; left: 62.7%; --token-size: 52% }
 
 img.token {
   //display: none;
@@ -70,6 +70,7 @@ img.token {
   cursor: grab;
   pointer-events: auto;
   transition: transform 0.2s ease;
+  filter: drop-shadow(6px 6px 4px rgba(0, 0, 0, 0.6));
 }
 
 .arrow {
@@ -123,3 +124,16 @@ img.token {
   }
 }
 
+.moving-token {
+  position: absolute;
+  width: 28%;
+  aspect-ratio: 1 / 1;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transition: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
