@@ -1,0 +1,120 @@
+.board {
+  position: relative;
+  width: 100%;
+  max-width: 432px;
+  aspect-ratio: 864 / 1382;
+  background-image: url("../../assets/bg_bushu.png");
+  background-size: cover;
+  background-position: center;
+  padding: 1%;
+  --token-size: 50%;
+}
+
+.cell {
+  position: absolute;
+  width: 28%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell-0-0 { top: 22%; left: 10%; --token-size: 50% }
+.cell-0-1 { top: 18.8%; left: 36.4%; --token-size: 50% }
+.cell-0-2 { top: 22%; left: 62.9%; --token-size: 50% }
+
+.cell-1-0 {
+  top: 35.5%;
+  left: 8%;
+  --token-size: 51%;
+  &.red {
+    top: 36.5%;
+    left: 8.9%;
+  }
+}
+.cell-1-1 {
+  top: 35.5%;
+  left: 35.6%;
+  --token-size: 51%;
+  &.red {
+    top: 36.5%;
+    left: 36.3%
+  }
+}
+.cell-1-2 {
+  top: 35.5%;
+  left: 63%;
+  --token-size: 51%;
+  &.red {
+    top: 36.5%;
+    left: 63.9%;
+  }
+}
+
+.cell-2-0 { top: 49.2%; left: 8.3%; --token-size: 52% }
+.cell-2-1 { top: 52.6%; left: 35.5%; --token-size: 52% }
+.cell-2-2 { top: 49.2%; left: 62.9%; --token-size: 52% }
+
+img.token {
+  //display: none;
+  width: var(--token-size, 80%);
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  cursor: grab;
+  pointer-events: auto;
+  transition: transform 0.2s ease;
+}
+
+.arrow {
+  position: absolute;
+  width: 4%;
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .8;
+  animation: glow 2.5s infinite ease-in-out;
+}
+
+.arrow-1 {
+  top: 36.1%;
+  left: 20.7%;
+  transform: rotate(180deg);
+}
+.arrow-2 {
+  top: 34.3%;
+  width: 5%;
+  left: 47.5%;
+  transform: rotate(180deg);
+}
+.arrow-3 {
+  top: 36.1%;
+  left: 75.3%;
+  transform: rotate(180deg);
+}
+.arrow-4 {
+  top: 51.6%;
+  left: 20.5%;
+}
+.arrow-5 {
+  top: 51.6%;
+  left: 47.5%;
+  width: 5%;
+}
+.arrow-6 {
+  top: 51.6%;
+  left: 75.4%;
+}
+
+@keyframes glow {
+  0%, 100% {
+    opacity: .6;
+    filter: drop-shadow(0 0 2px rgba(255, 223, 0, 0.6));
+  }
+  50% {
+    opacity: .9;
+    filter: drop-shadow(0 0 16px rgba(255, 223, 0, 1));
+  }
+}
+
