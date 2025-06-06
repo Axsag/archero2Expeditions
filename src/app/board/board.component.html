@@ -1,11 +1,11 @@
 <div class="boardcp">
   <div class="board">
-    <img src="assets/arrow_yellow.png" class="arrow arrow-1" />
-    <img src="assets/arrow_yellow.png" class="arrow arrow-2" />
-    <img src="assets/arrow_yellow.png" class="arrow arrow-3" />
-    <img src="assets/arrow_yellow.png" class="arrow arrow-4" />
-    <img src="assets/arrow_yellow.png" class="arrow arrow-5" />
-    <img src="assets/arrow_yellow.png" class="arrow arrow-6" />
+    <img src="assets/arrow_yellow.png" class="arrow arrow-1" [class.faded]="isCellOccupied(1, 0)" />
+    <img src="assets/arrow_yellow.png" class="arrow arrow-2" [class.faded]="isCellOccupied(1, 1)"/>
+    <img src="assets/arrow_yellow.png" class="arrow arrow-3" [class.faded]="isCellOccupied(1, 2)"/>
+    <img src="assets/arrow_yellow.png" class="arrow arrow-4" [class.faded]="isCellOccupied(1, 0)"/>
+    <img src="assets/arrow_yellow.png" class="arrow arrow-5" [class.faded]="isCellOccupied(1, 1)"/>
+    <img src="assets/arrow_yellow.png" class="arrow arrow-6" [class.faded]="isCellOccupied(1, 2)"/>
 
     <div *ngFor="let row of board; let i = index">
       <ng-container *ngFor="let cell of row; let j = index">

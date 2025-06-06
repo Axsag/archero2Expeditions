@@ -40,6 +40,10 @@ export class BoardComponent {
     );
   }
 
+  isCellOccupied(row: number, col: number): boolean {
+    return !!this.board?.[row]?.[col]?.token;
+  }
+
   onCellTap(row: number, col: number) {
     const cell = this.board[row][col];
 

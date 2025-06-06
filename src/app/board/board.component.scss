@@ -24,7 +24,7 @@
   justify-content: center;
 }
 
-.cell-0-0 { top: 22%; left: 10%; --token-size: 50% }
+.cell-0-0 { top: 22%; left: 9.8%; --token-size: 50% }
 .cell-0-1 { top: 18.8%; left: 36.4%; --token-size: 50% }
 .cell-0-2 { top: 22%; left: 62.8%; --token-size: 50% }
 
@@ -56,12 +56,11 @@
   }
 }
 
-.cell-2-0 { top: 49.2%; left: 8.3%; --token-size: 52% }
-.cell-2-1 { top: 52.6%; left: 35.5%; --token-size: 52% }
-.cell-2-2 { top: 49.2%; left: 62.7%; --token-size: 52% }
+.cell-2-0 { top: 49.2%; left: 8.21%; --token-size: 52% }
+.cell-2-1 { top: 52.6%; left: 35.55%; --token-size: 52% }
+.cell-2-2 { top: 49.2%; left: 62.75%; --token-size: 52% }
 
 img.token {
-  //display: none;
   width: var(--token-size, 80%);
   height: auto;
   max-width: 100%;
@@ -81,6 +80,10 @@ img.token {
   pointer-events: none;
   opacity: .8;
   animation: glow 2.5s infinite ease-in-out;
+}
+.faded {
+  opacity: 0 !important;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .arrow-1 {
@@ -115,11 +118,9 @@ img.token {
 
 @keyframes glow {
   0%, 100% {
-    opacity: .6;
     filter: drop-shadow(0 0 2px rgba(255, 223, 0, 0.6));
   }
   50% {
-    opacity: .9;
     filter: drop-shadow(0 0 16px rgba(255, 223, 0, 1));
   }
 }
