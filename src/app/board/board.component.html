@@ -1,32 +1,35 @@
-<div class="board">
-  <img src="assets/arrow_yellow.png" class="arrow arrow-1" />
-  <img src="assets/arrow_yellow.png" class="arrow arrow-2" />
-  <img src="assets/arrow_yellow.png" class="arrow arrow-3" />
-  <img src="assets/arrow_yellow.png" class="arrow arrow-4" />
-  <img src="assets/arrow_yellow.png" class="arrow arrow-5" />
-  <img src="assets/arrow_yellow.png" class="arrow arrow-6" />
-  <div
-    *ngFor="let row of board; let i = index"
-  >
-    <ng-container *ngFor="let cell of row; let j = index">
-      <div
-        class="cell"
-        [ngClass]="['cell-' + i + '-' + j, cell.token??'']"
-        (dragover)="allowDrop($event)"
-        (drop)="onDrop(i, j)"
-      >
-        <img
-          *ngIf="cell.token"
-          [src]="
+<div class="boardcp">
+  <div class="board">
+    <img src="assets/arrow_yellow.png" class="arrow arrow-1" />
+    <img src="assets/arrow_yellow.png" class="arrow arrow-2" />
+    <img src="assets/arrow_yellow.png" class="arrow arrow-3" />
+    <img src="assets/arrow_yellow.png" class="arrow arrow-4" />
+    <img src="assets/arrow_yellow.png" class="arrow arrow-5" />
+    <img src="assets/arrow_yellow.png" class="arrow arrow-6" />
+    <div
+      *ngFor="let row of board; let i = index"
+    >
+      <ng-container *ngFor="let cell of row; let j = index">
+        <div
+          class="cell"
+          [ngClass]="['cell-' + i + '-' + j, cell.token??'']"
+          (dragover)="allowDrop($event)"
+          (drop)="onDrop(i, j)"
+        >
+          <img
+            *ngIf="cell.token"
+            [src]="
             cell.token === 'red'
               ? 'assets/qizi_red.png'
               : 'assets/qizi_blue.png'
           "
-          class="token"
-          draggable="true"
-          (dragstart)="onDragStart(i, j)"
-        />
-      </div>
-    </ng-container>
+            class="token"
+            draggable="true"
+            (dragstart)="onDragStart(i, j)"
+          />
+        </div>
+      </ng-container>
+    </div>
   </div>
 </div>
+<bottom-navbar></bottom-navbar>

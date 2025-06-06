@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {BottomNavbarComponent} from '../bottom-navbar/bottom-navbar.component';
 import {CommonModule} from '@angular/common';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 type Token = 'red' | 'blue' | null;
 
