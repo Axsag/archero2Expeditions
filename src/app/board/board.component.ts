@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
 import { BottomNavbarComponent } from '../bottom-navbar/bottom-navbar.component';
 import { CommonModule } from '@angular/common';
+import {PlayersModalComponent} from '../players-modal/players-modal.component';
 
 type Token = 'red' | 'blue' | null;
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, BottomNavbarComponent],
+  imports: [
+    CommonModule,
+    BottomNavbarComponent,
+    PlayersModalComponent
+  ],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })

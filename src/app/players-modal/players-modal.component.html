@@ -1,0 +1,69 @@
+<!-- Trigger Button (optional) -->
+<button (click)="openModal()">Show Players</button>
+
+<!-- Modal Overlay -->
+<div class="modal-backdrop" *ngIf="showModal" (click)="closeModal()"></div>
+
+<!-- Modal Window -->
+<div class="modal" *ngIf="showModal">
+  <!-- Header -->
+  <div class="modal-header">
+    <div class="add-player-overlay" *ngIf="showAddPlayerForm">
+      <div class="add-player-box">
+        <input type="text" [(ngModel)]="newPlayerName" placeholder="Name" />
+        <input type="number" [(ngModel)]="newPlayerPower" placeholder="Power" />
+        <div class="form-buttons">
+          <img src="assets/Btn_S_Blue+.png" alt="Add" (click)="confirmAddPlayer()" />
+          <img src="assets/Btn_S_Red_No.png" alt="Cancel" (click)="toggleAddPlayerForm()" />
+        </div>
+      </div>
+    </div>
+    <img
+      src="assets/Btn_S_Blue+.png"
+      alt="Add Player"
+      class="icon-button"
+      (click)="toggleAddPlayerForm()"
+    />
+    <img
+      src="assets/Btn_Close_Pop.png"
+      alt="Close"
+      class="icon-button close-icon"
+      (click)="closeModal()"
+    />
+  </div>
+
+  <!-- Lane Filter -->
+  <div class="lane-filter">
+    <img
+      *ngFor="let lane of allLanes"
+      [src]="'assets/Btn_S_' + lane + '.png'"
+      alt="Filter Lane"
+      [class.selected]="selectedFilterLane === lane"
+      (click)="selectFilterLane(lane)"
+    />
+  </div>
+
+  <!-- Filtered Player List -->
+  <div *ngFor="let player of filteredPlayers" class="player-row">
+    <div class="player-info">
+      <span>{{ player.name }}</span>
+      <span>{{ player.power }}</span>
+    </div>
+    <div class="lane-buttons">
+      <img
+        *ngFor="let lane of lanes"
+        [src]="'assets/Btn_S_' + lane + '.png'"
+        alt="Lane Icon"
+        class="lane-icon"
+        [class.selected]="player.lane === lane"
+        (click)="assignLane(player, lane)"
+      />
+      <img
+        src="assets/Btn_S_Red_No.png"
+        alt="Delete Player"
+        class="icon-button delete-icon"
+        (click)="deletePlayer(player)"
+      />
+    </div>
+  </div>
+</div>

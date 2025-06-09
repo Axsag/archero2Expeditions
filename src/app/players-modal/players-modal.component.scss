@@ -1,0 +1,159 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 400px;
+  background: white;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  z-index: 1000;
+  border-radius: 8px;
+}
+
+.player-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.player-info {
+  display: flex;
+  gap: 8px;
+}
+
+.lane-buttons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lane-buttons img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.lane-buttons img.selected {
+  filter: none;
+}
+
+.close-btn {
+  margin-top: 16px;
+  width: 100%;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon-button {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.icon-button:hover {
+  filter: none;
+}
+
+.close-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.delete-icon {
+  margin-left: 8px;
+}
+
+.player-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.lane-buttons img {
+  margin: 0 2px;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.lane-icon {
+  filter: grayscale(100%);
+}
+
+.lane-buttons img.selected {
+  filter: none;
+}
+.lane-filter {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.lane-filter img {
+  width: 32px;
+  height: 32px;
+  margin: 0 4px;
+  cursor: pointer;
+  filter: grayscale(100%);
+  transition: filter 0.2s;
+}
+
+.lane-filter img.selected {
+  filter: none;
+}
+.add-player-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.add-player-box {
+  background: #222;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.add-player-box input {
+  width: 150px;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+}
+
+.form-buttons img {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  margin: 0 8px;
+}
