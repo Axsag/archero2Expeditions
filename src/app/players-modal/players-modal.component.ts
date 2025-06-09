@@ -39,27 +39,8 @@ export class PlayersModalComponent implements OnInit {
     this.loadPlayers();
 
     if (this.players.length === 0) {
-      // Only add demo players if none are stored
       this.addPlayer('Example Left', 1.2, 1);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
-      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1.2, 2);
       this.addPlayer('Example Right', 1.2, 3);
     }
   }
@@ -151,5 +132,13 @@ export class PlayersModalComponent implements OnInit {
       .slice(0, 8); // top 8 only
     const total = players.reduce((sum, p) => sum + p.power, 0);
     return total.toFixed(1);
+  }
+
+  isTop8(player: Player): boolean {
+    const lanePlayers = this.players
+      .filter(p => p.lane === player.lane && player.lane !== 0)
+      .sort((a, b) => b.power - a.power)
+      .slice(0, 8);
+    return lanePlayers.includes(player);
   }
 }

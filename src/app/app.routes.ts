@@ -4,7 +4,7 @@ import {TaskListComponent} from './task-list/task-list.component';
 import {BoardComponent} from './board/board.component';
 
 export const routes: Routes = [
-  { path: '', component: TaskListComponent },
+  { path: '', component: BoardComponent },
   { path: 'talents', component: SkillListComponent },
   { path: 'tasks', component: TaskListComponent },
   { path: 'board', component: BoardComponent }

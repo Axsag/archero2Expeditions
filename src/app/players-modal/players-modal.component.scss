@@ -38,6 +38,7 @@
 }
 .player-row {
   display: flex;
+  border: 3px solid #0000;
   justify-content: space-between;
   align-items: center;
   padding: 6px 12px;
@@ -45,7 +46,10 @@
   background: #fce9c1;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgb(155, 96, 64);
-
+  &.top8 {
+    border-color: green;
+    background: #eefcc1;
+  }
 
   .player-info {
     display: flex;
