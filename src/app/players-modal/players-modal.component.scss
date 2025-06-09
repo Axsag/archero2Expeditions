@@ -182,3 +182,56 @@
     filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9));
   }
 }
+
+.lane-summary-wrapper {
+  position: fixed;
+  bottom: 100px; // adjust if needed
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 900;
+}
+
+.lane-summary-container {
+  display: flex;
+  gap: 10px;
+}
+
+.lane-summary-box {
+  background: #111;
+  color: #fedf9e;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+  font-size: 14px;
+  text-align: center;
+  gap: 4px;
+
+  .lane-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+
+  .lane-players, .lane-power {
+    font-size: 13px;
+  }
+
+  .lane-power,.lane-players {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    line-height: 1;
+
+    .icon-power, icon-players {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+      display: block;
+    }
+  }
+}

@@ -5,6 +5,24 @@
   class="icon-open-pl-mod"
   (click)="openModal()"
 />
+
+<div class="lane-summary-wrapper" *ngIf="!showModal">
+  <div class="lane-summary-container">
+    <div class="lane-summary-box" *ngFor="let lane of lanes"
+         (click)="openModal(lane)">
+      <div class="lane-title">{{ laneNames[lane] }}</div>
+      <div class="lane-players">
+        <img src="assets/icon_friend.png" alt="Power Icon" class="icon-power" />
+        <span>{{ getLanePlayerCount(lane) }}</span>
+      </div>
+      <div class="lane-power">
+        <img src="assets/icon_power.png" alt="Power Icon" class="icon-power" />
+        <span>{{ getLaneTotalPower(lane) }}K</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal Overlay -->
 <div class="modal-backdrop" *ngIf="showModal" (click)="closeModal()"></div>
 

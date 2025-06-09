@@ -25,6 +25,11 @@ export class PlayersModalComponent implements OnInit {
 
   readonly allLanes: (0 | 1 | 2 | 3)[] = [0, 1, 2, 3];
   readonly lanes: (1 | 2 | 3)[] = [1, 2, 3];
+  readonly laneNames: Record<1 | 2 | 3, string> = {
+    1: 'Left',
+    2: 'Mid',
+    3: 'Right'
+  };
 
   newPlayerName = '';
   newPlayerPower: number | null = null;
@@ -36,12 +41,33 @@ export class PlayersModalComponent implements OnInit {
     if (this.players.length === 0) {
       // Only add demo players if none are stored
       this.addPlayer('Example Left', 1.2, 1);
-      this.addPlayer('Example Mid', 1.2, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
+      this.addPlayer('Example Mid', 1102, 2);
       this.addPlayer('Example Right', 1.2, 3);
     }
   }
 
-  openModal() {
+  openModal(laneFilter: 0|1|2|3|null = null) {
+    if (laneFilter !== null) {
+      this.selectFilterLane(laneFilter);
+    }
     this.showModal = true;
   }
 
@@ -110,5 +136,20 @@ export class PlayersModalComponent implements OnInit {
 
     this.addPlayer(name, power);
     this.toggleAddPlayerForm();
+  }
+
+  getLanePlayerCount(lane: 1 | 2 | 3): string {
+    const players = this.players.filter(p => p.lane === lane);
+    const count = players.length;
+    return count <= 8 ? `${count}/8` : `8/8 (+${count - 8})`;
+  }
+
+  getLaneTotalPower(lane: 1 | 2 | 3): string {
+    const players = this.players
+      .filter(p => p.lane === lane)
+      .sort((a, b) => b.power - a.power)
+      .slice(0, 8); // top 8 only
+    const total = players.reduce((sum, p) => sum + p.power, 0);
+    return total.toFixed(1);
   }
 }
