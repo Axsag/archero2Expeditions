@@ -83,9 +83,11 @@ export class PlayersModalComponent implements OnInit {
   }
 
   get filteredPlayers(): Player[] {
-    return this.selectedFilterLane === null
+    const players = this.selectedFilterLane === null
       ? this.players
       : this.players.filter(player => player.lane === this.selectedFilterLane);
+
+    return players.slice().sort((a, b) => b.power - a.power);
   }
 
   selectFilterLane(lane: 0 | 1 | 2 | 3) {

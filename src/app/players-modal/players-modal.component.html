@@ -1,6 +1,10 @@
 <!-- Trigger Button (optional) -->
-<button (click)="openModal()">Show Players</button>
-
+<img
+  src="assets/icon_zhanji.png"
+  alt="Show Players"
+  class="icon-open-pl-mod"
+  (click)="openModal()"
+/>
 <!-- Modal Overlay -->
 <div class="modal-backdrop" *ngIf="showModal" (click)="closeModal()"></div>
 
