@@ -35,7 +35,9 @@ export class PlayersModalComponent implements OnInit {
 
     if (this.players.length === 0) {
       // Only add demo players if none are stored
-      this.addPlayer('Example', 1.2);
+      this.addPlayer('Example Left', 1.2, 1);
+      this.addPlayer('Example Mid', 1.2, 2);
+      this.addPlayer('Example Right', 1.2, 3);
     }
   }
 
@@ -61,8 +63,8 @@ export class PlayersModalComponent implements OnInit {
     this.savePlayers();
   }
 
-  addPlayer(name: string, power: number ) {
-    this.players.push({ name, power, lane: 0 });
+  addPlayer(name: string, power: number, lane: 0 | 1 | 2 | 3 = 0 ) {
+    this.players.push({ name, power, lane });
     this.savePlayers();
   }
 
