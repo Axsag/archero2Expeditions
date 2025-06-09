@@ -11,7 +11,7 @@
     <div class="add-player-overlay" *ngIf="showAddPlayerForm">
       <div class="add-player-box">
         <input type="text" [(ngModel)]="newPlayerName" placeholder="Name" />
-        <input type="number" [(ngModel)]="newPlayerPower" placeholder="Power" />
+        <input type="number" [(ngModel)]="newPlayerPower" placeholder="Power (K)" />
         <div class="form-buttons">
           <img src="assets/Btn_S_Blue+.png" alt="Add" (click)="confirmAddPlayer()" />
           <img src="assets/Btn_S_Red_No.png" alt="Cancel" (click)="toggleAddPlayerForm()" />
@@ -44,26 +44,32 @@
   </div>
 
   <!-- Filtered Player List -->
-  <div *ngFor="let player of filteredPlayers" class="player-row">
-    <div class="player-info">
-      <span>{{ player.name }}</span>
-      <span>{{ player.power }}</span>
-    </div>
-    <div class="lane-buttons">
-      <img
-        *ngFor="let lane of lanes"
-        [src]="'assets/Btn_S_' + lane + '.png'"
-        alt="Lane Icon"
-        class="lane-icon"
-        [class.selected]="player.lane === lane"
-        (click)="assignLane(player, lane)"
-      />
-      <img
-        src="assets/Btn_S_Red_No.png"
-        alt="Delete Player"
-        class="icon-button delete-icon"
-        (click)="deletePlayer(player)"
-      />
+  <div class="players">
+    <div *ngFor="let player of filteredPlayers" class="player-row">
+      <div class="player-info">
+        <span class="name">{{ player.name }}</span>
+        <span class="power">
+            {{ player.power }}K
+            <img src="assets/icon_power.png" alt="Power Icon" class="icon-power" />
+      </span>
+      </div>
+      <div class="lane-buttons">
+        <img
+          *ngFor="let lane of lanes"
+          [src]="'assets/Btn_S_' + lane + '.png'"
+          alt="Lane Icon"
+          class="lane-icon"
+          [class.selected]="player.lane === lane"
+          (click)="assignLane(player, lane)"
+        />
+        <img
+          src="assets/Btn_S_Red_No.png"
+          alt="Delete Player"
+          class="icon-button delete-icon"
+          (click)="deletePlayer(player)"
+        />
+      </div>
     </div>
   </div>
+
 </div>
