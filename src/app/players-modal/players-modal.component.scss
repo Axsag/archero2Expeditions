@@ -100,10 +100,19 @@
   }
 }
 
+.lane-distribute {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center
+
+}
+
 .lane-filter {
   display: flex;
   justify-content: center;
-  margin-bottom: 12px;
+  align-items: center;
 
   img {
     width: 32px;
@@ -189,11 +198,12 @@
 
 .lane-summary-wrapper {
   position: fixed;
-  bottom: 100px; // adjust if needed
+  bottom: 100px;
   width: 100%;
   display: flex;
   justify-content: center;
   z-index: 900;
+  max-width: 432px;
 }
 
 .lane-summary-container {
@@ -238,4 +248,15 @@
       display: block;
     }
   }
+}
+.spread-power-button {
+  background-color: #336ae1;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  transition: background-color 0.2s;
+  border: 1px solid darkblue;
 }

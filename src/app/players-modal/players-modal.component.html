@@ -35,8 +35,8 @@
         <input type="text" [(ngModel)]="newPlayerName" placeholder="Name" />
         <input type="number" [(ngModel)]="newPlayerPower" placeholder="Power (K)" />
         <div class="form-buttons">
-          <img src="assets/Btn_S_Blue+.png" alt="Add" (click)="confirmAddPlayer()" />
           <img src="assets/Btn_S_Red_No.png" alt="Cancel" (click)="toggleAddPlayerForm()" />
+          <img src="assets/Btn_S_Green_Yes.png" alt="Add" (click)="confirmAddPlayer()" />
         </div>
       </div>
     </div>
@@ -47,6 +47,13 @@
       (click)="toggleAddPlayerForm()"
     />
     <img
+      style="width: auto"
+      src="assets/btn_shuaxin.png"
+      alt="Reset Player"
+      class="icon-button"
+      (click)="resetAllPlayers()"
+    />
+    <img
       src="assets/Btn_Close_Pop.png"
       alt="Close"
       class="icon-button close-icon"
@@ -54,8 +61,35 @@
     />
   </div>
 
+  <div class="lane-distribute">
+    <p>Spread Power:</p>
+    <img
+      src="assets/Btn_S_ooo.png"
+      style="width: auto"
+      alt="Distribute Players"
+      class="icon-button"
+      (click)="distributePlayersEvenly()"
+      title="Distribute players evenly by power"
+    />
+    <img
+      src="assets/Btn_S_oox.png"
+      style="width: auto"
+      alt="Distribute Players"
+      class="icon-button"
+      (click)="distributePlayersEvenly(2)"
+      title="Distribute players evenly by power"
+    />
+    <img
+      src="assets/Btn_S_reset.png"
+      alt="Distribute Players"
+      class="icon-button"
+      (click)="resetLanes()"
+      title="Distribute players evenly by power"
+    />
+  </div>
   <!-- Lane Filter -->
   <div class="lane-filter">
+    <p>Filter:</p>
     <img
       *ngFor="let lane of allLanes"
       [src]="'assets/Btn_S_' + lane + '.png'"

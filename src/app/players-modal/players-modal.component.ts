@@ -39,9 +39,7 @@ export class PlayersModalComponent implements OnInit {
     this.loadPlayers();
 
     if (this.players.length === 0) {
-      this.addPlayer('Example Left', 1.2, 1);
-      this.addPlayer('Example Mid', 1.2, 2);
-      this.addPlayer('Example Right', 1.2, 3);
+      this.generateRandomPlayers(3);
     }
   }
 
@@ -140,5 +138,81 @@ export class PlayersModalComponent implements OnInit {
       .sort((a, b) => b.power - a.power)
       .slice(0, 8);
     return lanePlayers.includes(player);
+  }
+
+  distributePlayersEvenly(lanesCount: 2 | 3 = 3) {
+    // Sort players descending by power
+    const sorted = this.players.slice().sort((a, b) => b.power - a.power);
+
+    // Define limits based on lanesCount
+    const topCount = lanesCount === 3 ? 24 : 16;
+    const perLaneLimit = 8;
+
+    // Initialize empty lanes depending on lanesCount (3 lanes always)
+    const lanes: { players: Player[], totalPower: number }[] = [
+      { players: [], totalPower: 0 },
+      { players: [], totalPower: 0 },
+      { players: [], totalPower: 0 }
+    ];
+
+    const topPlayers = sorted.slice(0, topCount);
+
+    for (const player of topPlayers) {
+
+      let targetLaneIndex = lanes
+        .slice(0, lanesCount)
+        .reduce((minIndex, lane, index, arr) => {
+          if (lane.players.length >= perLaneLimit) {
+            // If lane full, ignore it (return current minIndex)
+            return minIndex;
+          }
+          return lane.totalPower < arr[minIndex].totalPower ? index : minIndex;
+        }, 0);
+
+      player.lane = (targetLaneIndex + 1) as 1 | 2 | 3;
+
+      lanes[targetLaneIndex].players.push(player);
+      lanes[targetLaneIndex].totalPower += player.power;
+    }
+
+    if (lanesCount === 2) {
+      const nextPlayers = sorted.slice(topCount, topCount + 8);
+      for (const player of nextPlayers) {
+        player.lane = 3;
+        lanes[2].players.push(player);
+        lanes[2].totalPower += player.power;
+      }
+    }
+
+    const assignedPlayers = lanes.flatMap(lane => lane.players);
+    for (const player of this.players) {
+      if (!assignedPlayers.includes(player)) {
+        player.lane = 0 as 0 | 1 | 2 | 3;
+      }
+    }
+
+    this.savePlayers();
+  }
+
+  resetLanes() {
+    for (const player of this.players) {
+      player.lane = 0;
+    }
+    this.savePlayers();
+  }
+
+  resetAllPlayers() {
+    if (confirm('Are you sure you want to delete ALL players? This action cannot be undone.')) {
+      this.players = [];
+      this.savePlayers();
+    }
+  }
+
+  generateRandomPlayers(count: number = 30) {
+    for (let i = 1; i <= count; i++) {
+      const name = `Player${i}`;
+      const power = Math.floor(Math.random() * (1200 - 600 + 1)) + 600;
+      this.addPlayer(name, power, 0);
+    }
   }
 }
