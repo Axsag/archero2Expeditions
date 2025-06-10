@@ -34,6 +34,14 @@
       <div class="add-player-box">
         <input type="text" [(ngModel)]="newPlayerName" placeholder="Name" />
         <input type="number" [(ngModel)]="newPlayerPower" placeholder="Power (K)" />
+        <img
+          [src]="'assets/gearset_' + newPlayerGearset + '.png'"
+          alt="Gearset Icon"
+          class="gearset-icon"
+          (click)="rotateGearset()"
+          title="Click to rotate gearset"
+        />
+
         <div class="form-buttons">
           <img src="assets/Btn_S_Red_No.png" alt="Cancel" (click)="toggleAddPlayerForm()" />
           <img src="assets/Btn_S_Green_Yes.png" alt="Add" (click)="confirmAddPlayer()" />
@@ -105,9 +113,9 @@
       <div class="player-info">
         <span class="name">{{ player.name }}</span>
         <span class="power">
-            {{ player.power }}K
-            <img src="assets/icon_power.png" alt="Power Icon" class="icon-power" />
-      </span>
+          {{ player.power }}K
+        </span>
+        <img [src]="'assets/gearset_' + player.gearset + '.png'" alt="Gear Icon" class="icon-gear" />
       </div>
       <div class="lane-buttons">
         <img

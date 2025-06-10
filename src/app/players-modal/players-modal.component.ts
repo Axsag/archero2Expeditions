@@ -5,6 +5,7 @@ interface Player {
   name: string;
   power: number;
   lane: 0 | 1 | 2 | 3;
+  gearset: 1 | 2 | 3;
 }
 
 @Component({
@@ -33,6 +34,7 @@ export class PlayersModalComponent implements OnInit {
 
   newPlayerName = '';
   newPlayerPower: number | null = null;
+  newPlayerGearset:  1 | 2 | 3 = 1;
   showAddPlayerForm = false;
 
   ngOnInit() {
@@ -68,8 +70,8 @@ export class PlayersModalComponent implements OnInit {
     this.savePlayers();
   }
 
-  addPlayer(name: string, power: number, lane: 0 | 1 | 2 | 3 = 0 ) {
-    this.players.push({ name, power, lane });
+  addPlayer(name: string, power: number, lane: 0 | 1 | 2 | 3 = 0, gearset: 1 | 2 | 3 = 1 ) {
+    this.players.push({ name, power, lane, gearset });
     this.savePlayers();
   }
 
@@ -110,10 +112,11 @@ export class PlayersModalComponent implements OnInit {
   confirmAddPlayer() {
     const name = this.newPlayerName.trim();
     const power = this.newPlayerPower;
+    const gearset = this.newPlayerGearset;
 
     if (!name || power === null || isNaN(power)) return;
 
-    this.addPlayer(name, power);
+    this.addPlayer(name, power, 0, gearset);
     this.toggleAddPlayerForm();
   }
 
@@ -212,7 +215,12 @@ export class PlayersModalComponent implements OnInit {
     for (let i = 1; i <= count; i++) {
       const name = `Player${i}`;
       const power = Math.floor(Math.random() * (1200 - 600 + 1)) + 600;
-      this.addPlayer(name, power, 0);
+      const gearset = Math.floor(Math.random() * 3) + 1 as 1 | 2 | 3;
+      this.addPlayer(name, power, 0, gearset);
     }
+  }
+
+  rotateGearset() {
+    this.newPlayerGearset = (this.newPlayerGearset % 3 + 1) as 1 | 2 | 3;
   }
 }

@@ -54,7 +54,7 @@
   .player-info {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     flex: 1;
     .name {
       flex: 1;
@@ -64,12 +64,11 @@
       align-items: center;
       gap: 4px;
       white-space: nowrap;
-      padding-right: 12px;
-
-      .icon-power {
-        width: 16px;
-        height: 16px;
-      }
+    }
+    .icon-gear {
+      width: 32px;
+      height: 32px;
+      padding-right: 8px;
     }
   }
 
@@ -146,6 +145,11 @@
   flex-direction: column;
   gap: 10px;
   align-items: center;
+
+  .gearset-icon {
+    height: 60px;
+    width: 60px;
+  }
 
   input {
     width: 150px;
@@ -259,4 +263,15 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
   transition: background-color 0.2s;
   border: 1px solid darkblue;
+}
+.gear-buttons img {
+  width: 24px;
+  margin: 0 2px;
+  cursor: pointer;
+  opacity: 0.6;
+  &.selected {
+    opacity: 1;
+    border: 1px solid yellow;
+    border-radius: 4px;
+  }
 }
